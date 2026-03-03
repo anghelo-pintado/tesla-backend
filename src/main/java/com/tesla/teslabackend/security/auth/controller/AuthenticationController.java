@@ -67,9 +67,9 @@ public class AuthenticationController {
     public ResponseEntity<Void> logout(HttpServletResponse response) {
         ResponseCookie deleteCookie = ResponseCookie.from("refreshToken", "")
                 .httpOnly(true)
-                .secure(false) // true en producción (HTTPS)
+                .secure(true) // true en producción (HTTPS)
                 .path("/api/v1/auth")
-                .sameSite("Lax")
+                .sameSite("None")
                 .maxAge(0)
                 .build();
 
@@ -80,9 +80,9 @@ public class AuthenticationController {
     private void addRefreshCookie(HttpServletResponse response, String token) {
         ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", token)
                 .httpOnly(true)
-                .secure(false) // true en producción (HTTPS)
+                .secure(true) // true en producción (HTTPS)
                 .path("/api/v1/auth")
-                .sameSite("Lax") // usar "None" si frontend/backend están en sitios distintos + HTTPS
+                .sameSite("None") // usar "None" si frontend/backend están en sitios distintos + HTTPS
                 .maxAge(30L * 24 * 60 * 60) // 30 días
                 .build();
 
