@@ -43,6 +43,14 @@ public class EstadisticasAlumno {
     @Column(name = "ranking_anterior")
     private Integer rankingAnterior;
 
+    public void ganarExperiencia(int puntos) {
+        if (puntos > 0) {
+            // Se usa el operador ternario para evitar NullPointerException si la BD tiene nulos
+            this.expTotal = (this.expTotal == null ? 0 : this.expTotal) + puntos;
+            this.expSemanal = (this.expSemanal == null ? 0 : this.expSemanal) + puntos;
+        }
+    }
+
     public void verificarYReiniciarRacha() {
         if (this.ultimaFechaMision != null) {
             LocalDate hoy = LocalDate.now();

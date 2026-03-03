@@ -22,7 +22,6 @@ public class EstadisticaController {
         return ResponseEntity.ok(service.obtenerPorId(idUsuario));
     }
 
-    // Endpoint para cuando el alumno completa algo (ej. gana 50 EXP)
     @PostMapping("/{idUsuario}/mision-completa")
     public ResponseEntity<EstadisticasAlumno> completarMision(
             @PathVariable Integer idUsuario,

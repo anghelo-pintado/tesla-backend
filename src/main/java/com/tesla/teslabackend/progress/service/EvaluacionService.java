@@ -37,13 +37,12 @@ public class EvaluacionService {
     @Autowired private ProgresoLeccionesRepository progresoRepository;
     @Autowired private EstadisticasAlumnoRepository estadisticasRepository;
 
-    // 2. Calificar el intento
     @Transactional
     public ResultadoEvaluacionDTO calificarLeccion(Integer idLeccion, SolicitudCalificacionDTO solicitud) {
 
-        // A. Validaciones (Casteamos a Long si tus repositorios siguen usando JpaRepository<Entidad, Long>)
+        // A. Validaciones
         Usuario usuario = usuarioRepository.findById(solicitud.idUsuario())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado en la Academia Tesla"));
         Leccion leccion = leccionRepository.findById(idLeccion)
                 .orElseThrow(() -> new RuntimeException("Lección no encontrada"));
 
@@ -94,7 +93,12 @@ public class EvaluacionService {
                             nueva.setUsuario(usuario);
                             return nueva;
                         });
-                stats.setExpTotal((stats.getExpTotal() == null ? 0 : stats.getExpTotal()) + expGanada);
+
+                // ==========================================
+                // CORRECCIÓN APLICADA AQUÍ
+                // ==========================================
+                stats.ganarExperiencia(expGanada);
+
                 estadisticasRepository.save(stats);
             }
         }

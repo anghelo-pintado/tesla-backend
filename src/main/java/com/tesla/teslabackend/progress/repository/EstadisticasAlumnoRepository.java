@@ -13,13 +13,11 @@ public interface EstadisticasAlumnoRepository extends JpaRepository<Estadisticas
 
     @Query("SELECT e FROM EstadisticasAlumno e " +
             "JOIN FETCH e.usuario u " +
+            "WHERE u.rol = 'alumno' " +
             "ORDER BY e.expSemanal DESC")
     List<EstadisticasAlumno> findAllByOrderByExpSemanalDesc();
 
-    // Método para el Job que reinicia el torneo (Pone a 0 solo la exp semanal)
     @Modifying
     @Query("UPDATE EstadisticasAlumno e SET e.expSemanal = 0")
     void reiniciarExperienciaSemanal();
-
-
 }
