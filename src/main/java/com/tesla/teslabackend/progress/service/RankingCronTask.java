@@ -22,7 +22,6 @@ public class RankingCronTask {
     @Autowired private HistorialRankingRepository historialRepository;
 
     @Scheduled(cron = "0 0 0 * * MON", zone = "America/Lima")
-    @Transactional
     public void reiniciarTorneoSemanal() {
         log.info("⏰ Iniciando guardado de Historial y reinicio semanal...");
         try {
