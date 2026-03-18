@@ -1,5 +1,6 @@
 package com.tesla.teslabackend.progress.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tesla.teslabackend.user.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,6 +19,7 @@ public class EstadisticasAlumno {
     @Column(name = "id_usuario")
     private Integer idUsuario;
 
+    @JsonIgnore
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "id_usuario", nullable = false)
