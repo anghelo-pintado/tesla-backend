@@ -18,4 +18,8 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Long> 
     @Modifying
     @Query("DELETE FROM ChatMessage c WHERE c.timestamp < :cutoffDate")
     void deleteOlderThan(@Param("cutoffDate") LocalDateTime cutoffDate);
+
+    @Modifying
+    @Query("DELETE FROM ChatMessage c WHERE c.groupId = :groupId")
+    void deleteByGroupId(@Param("groupId") Long groupId);
 }

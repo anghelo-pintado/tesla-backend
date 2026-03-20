@@ -5,7 +5,7 @@ import com.tesla.teslabackend.group.entity.Group;
 import com.tesla.teslabackend.group.entity.GroupMember;
 import com.tesla.teslabackend.group.repository.GroupMemberRepository;
 import com.tesla.teslabackend.group.repository.GroupRepository;
-// IMPORTAMOS TUS CLASES DE USUARIO AQUÍ
+import com.tesla.teslabackend.group.repository.ChatMessageRepository;
 import com.tesla.teslabackend.user.entity.Usuario;
 import com.tesla.teslabackend.user.repository.UsuarioRepository;
 
@@ -26,6 +26,7 @@ public class GroupService {
     private final GroupMemberRepository groupMemberRepository;
     // INYECTAMOS TU REPOSITORIO DE USUARIOS
     private final UsuarioRepository usuarioRepository;
+    private final ChatMessageRepository chatMessageRepository;
 
     @Transactional
     public Group createGroup(String name, Long creatorId) {
@@ -79,7 +80,6 @@ public class GroupService {
 
         return members.stream().map(member -> {
 
-            // BUSCAMOS AL USUARIO EN LA BD (Convertimos el Long a Integer con .intValue())
             String studentName = usuarioRepository.findById(member.getStudentId().intValue())
                     .map(usuario -> usuario.getNombre() + " " + usuario.getApellido()) // Concatenamos Nombre y Apellido
                     .orElse("Estudiante " + member.getStudentId()); // Fallback por si el usuario fue borrado de la BD
@@ -114,7 +114,15 @@ public class GroupService {
         groupMemberRepository.delete(member);
 
         if (totalMembers <= 1) {
+            chatMessageRepository.deleteByGroupId(groupId);
             groupRepository.deleteById(groupId);
         }
+    }
+
+    @Transactional
+    public void deleteGroup(Long groupId) {
+        chatMessageRepository.deleteByGroupId(groupId);
+
+        groupRepository.deleteById(groupId);
     }
 }

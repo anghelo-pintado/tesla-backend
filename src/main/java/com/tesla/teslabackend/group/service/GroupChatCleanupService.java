@@ -14,12 +14,15 @@ public class GroupChatCleanupService {
 
     private final ChatMessageRepository chatMessageRepository;
 
-    // Se ejecuta todos los días a las 3:00 AM (hora del servidor)
-    @Scheduled(cron = "0 0 3 * * ?")
+    @Scheduled(fixedRate = 60000)
     @Transactional
     public void cleanOldChatMessages() {
-        LocalDateTime oneWeekAgo = LocalDateTime.now().minusDays(7);
-        chatMessageRepository.deleteOlderThan(oneWeekAgo);
-        System.out.println("🧹 Limpieza del Chat completada: Mensajes anteriores a " + oneWeekAgo + " eliminados.");
+
+        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
+
+        chatMessageRepository.deleteOlderThan(oneHourAgo);
+
+        // (Opcional) Puedes comentar el System.out para que no te llene la consola de texto cada minuto
+        // System.out.println("🧹 Limpieza Efímera: Mensajes con más de 1 hora de antigüedad eliminados.");
     }
 }
