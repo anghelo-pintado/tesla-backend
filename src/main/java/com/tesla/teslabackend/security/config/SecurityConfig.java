@@ -67,7 +67,8 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/proxy/**",
-                                "/actuator/**"
+                                "/actuator/**",
+                                "/ws-chat/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
