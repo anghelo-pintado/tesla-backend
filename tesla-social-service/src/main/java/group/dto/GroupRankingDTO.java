@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.group.dto;
+package group.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

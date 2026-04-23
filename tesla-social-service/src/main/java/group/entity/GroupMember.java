@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.group.entity;
+package group.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,6 +22,9 @@ public class GroupMember {
 
     @Column(name = "student_id", nullable = false, unique = true)
     private Long studentId; // Un estudiante solo puede estar en un grupo a la vez
+
+    @Column(name = "student_name", nullable = false)
+    private String studentName;
 
     @Column(name = "group_exp")
     private Integer groupExp = 0; // EXP independiente para el grupo

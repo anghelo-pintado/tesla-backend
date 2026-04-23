@@ -1,13 +1,11 @@
-package com.tesla.teslabackend.group.service;
+package group.service;
 
-import com.tesla.teslabackend.group.dto.GroupRankingDTO;
-import com.tesla.teslabackend.group.entity.Group;
-import com.tesla.teslabackend.group.entity.GroupMember;
-import com.tesla.teslabackend.group.repository.GroupMemberRepository;
-import com.tesla.teslabackend.group.repository.GroupRepository;
-import com.tesla.teslabackend.group.repository.ChatMessageRepository;
-import com.tesla.teslabackend.user.entity.Usuario;
-import com.tesla.teslabackend.user.repository.UsuarioRepository;
+import group.dto.GroupRankingDTO;
+import group.entity.Group;
+import group.entity.GroupMember;
+import group.repository.GroupMemberRepository;
+import group.repository.GroupRepository;
+import group.repository.ChatMessageRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,12 +22,10 @@ public class GroupService {
 
     private final GroupRepository groupRepository;
     private final GroupMemberRepository groupMemberRepository;
-    // INYECTAMOS TU REPOSITORIO DE USUARIOS
-    private final UsuarioRepository usuarioRepository;
     private final ChatMessageRepository chatMessageRepository;
 
     @Transactional
-    public Group createGroup(String name, Long creatorId) {
+    public Group createGroup(String name, Long creatorId, String creatorName) {
         if (groupMemberRepository.existsByStudentId(creatorId)) {
             throw new IllegalArgumentException("Ya perteneces a un grupo. Abandona tu grupo actual antes de crear uno.");
         }
@@ -50,6 +46,7 @@ public class GroupService {
         GroupMember leader = new GroupMember();
         leader.setGroup(savedGroup);
         leader.setStudentId(creatorId);
+        leader.setStudentName(creatorName);
         leader.setGroupExp(0);
         groupMemberRepository.save(leader);
 
@@ -78,19 +75,13 @@ public class GroupService {
         List<GroupMember> members = groupMemberRepository.findByGroupIdOrderByGroupExpDesc(groupId);
         AtomicInteger position = new AtomicInteger(1);
 
-        return members.stream().map(member -> {
-
-            String studentName = usuarioRepository.findById(member.getStudentId().intValue())
-                    .map(usuario -> usuario.getNombre() + " " + usuario.getApellido()) // Concatenamos Nombre y Apellido
-                    .orElse("Estudiante " + member.getStudentId()); // Fallback por si el usuario fue borrado de la BD
-
-            return new GroupRankingDTO(
+        return members.stream().map(member ->
+             new GroupRankingDTO(
                     position.getAndIncrement(),
                     member.getStudentId(),
-                    studentName,
+                    member.getStudentName(),
                     member.getGroupExp()
-            );
-        }).collect(Collectors.toList());
+             )).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

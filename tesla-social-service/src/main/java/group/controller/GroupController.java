@@ -1,9 +1,9 @@
-package com.tesla.teslabackend.group.controller;
+package group.controller;
 
-import com.tesla.teslabackend.group.dto.GroupRankingDTO;
-import com.tesla.teslabackend.group.dto.JoinGroupRequestDTO;
-import com.tesla.teslabackend.group.entity.Group;
-import com.tesla.teslabackend.group.service.GroupService;
+import group.dto.GroupRankingDTO;
+import group.dto.JoinGroupRequestDTO;
+import group.entity.Group;
+import group.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

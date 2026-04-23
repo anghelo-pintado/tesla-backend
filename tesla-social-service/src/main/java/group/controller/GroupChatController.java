@@ -1,7 +1,7 @@
-package com.tesla.teslabackend.group.controller;
+package group.controller;
 
-import com.tesla.teslabackend.group.entity.ChatMessage;
-import com.tesla.teslabackend.group.repository.ChatMessageRepository;
+import group.entity.ChatMessage;
+import group.repository.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
