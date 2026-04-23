@@ -1,4 +1,4 @@
-package com.tesla.teslabackend;
+package com.tesla.gamification;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;

@@ -1,104 +1,133 @@
-package com.tesla.gamification.lesson.service;
+package com.tesla.gamification.service;
 
-import com.tesla.gamification.course.entity.Semana;
-import com.tesla.gamification.lesson.dto.detalle.AlternativaDetalleDTO;
-import com.tesla.gamification.lesson.dto.detalle.LeccionDetalleDTO;
-import com.tesla.gamification.lesson.dto.detalle.PreguntaDetalleDTO;
-import com.tesla.gamification.lesson.dto.detalle.SemanaDetalleDTO;
-import com.tesla.gamification.lesson.dto.examen.AlternativaDTO;
-import com.tesla.gamification.lesson.dto.examen.CuestionarioDTO;
-import com.tesla.gamification.lesson.dto.examen.PreguntaDTO;
-import com.tesla.gamification.lesson.dto.CrearLeccionDTO;
-import com.tesla.gamification.lesson.entity.Leccion;
-import com.tesla.gamification.lesson.entity.Pregunta;
-import com.tesla.gamification.lesson.repository.LeccionRepository;
-import com.tesla.gamification.lesson.repository.PreguntaRepository;
-import com.tesla.gamification.course.repository.SemanaRepository;
+import com.tesla.gamification.entity.Alternativa;
+import com.tesla.gamification.entity.Leccion;
+import com.tesla.gamification.entity.Pregunta;
+import com.tesla.gamification.repository.LeccionRepository;
+import com.tesla.gamification.repository.PreguntaRepository;
+import com.tesla.gamification.dto.RespuestaAlumnoDTO;
+import com.tesla.gamification.dto.SolicitudCalificacionDTO;
+import com.tesla.gamification.dto.resultado.FeedbackPreguntaDTO;
+import com.tesla.gamification.dto.resultado.ResultadoEvaluacionDTO;
+import com.tesla.gamification.entity.*;
+import com.tesla.gamification.repository.EstadisticasAlumnoRepository;
+import com.tesla.gamification.repository.IntentoRepository;
+import com.tesla.gamification.repository.ProgresoLeccionesRepository;
+import com.tesla.gamification.user.entity.Usuario;
+import com.tesla.gamification.user.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class LessonService {
+public class EvaluacionService {
 
-    @Autowired private LeccionRepository leccionRepository;
     @Autowired private PreguntaRepository preguntaRepository;
-    @Autowired private SemanaRepository semanaRepository;
+    @Autowired private LeccionRepository leccionRepository;
+    @Autowired private UsuarioRepository usuarioRepository;
+
+    // Repositorios de su propio dominio (progress)
+    @Autowired private IntentoRepository intentoRepository;
+    @Autowired private ProgresoLeccionesRepository progresoRepository;
+    @Autowired private EstadisticasAlumnoRepository estadisticasRepository;
 
     @Transactional
-    public Leccion crearLeccion(CrearLeccionDTO dto) {
-        Semana semana = semanaRepository.findById(dto.idSemana())
-                .orElseThrow(() -> new RuntimeException("Semana no encontrada con ID: " + dto.idSemana()));
+    public ResultadoEvaluacionDTO calificarLeccion(Integer idLeccion, SolicitudCalificacionDTO solicitud) {
 
-        // Autocalcular el orden: Contamos cuántas lecciones tiene actualmente esta semana
-        // y le sumamos 1 para la nueva lección.
-        int cantidadLeccionesActuales = leccionRepository.countBySemana(semana);
-        int nuevoOrden = cantidadLeccionesActuales + 1;
-
-        Leccion leccion = new Leccion();
-        leccion.setSemana(semana);
-        leccion.setNombre(dto.nombre());
-        leccion.setDescripcion(dto.descripcion());
-
-        // Asignamos el orden calculado por el backend, ignorando el que mande el DTO
-        leccion.setOrden(nuevoOrden);
-
-        return leccionRepository.save(leccion);
-    }
-
-    @Transactional(readOnly = true)
-    public CuestionarioDTO obtenerCuestionario(Integer idLeccion) {
+        // A. Validaciones
+        Usuario usuario = usuarioRepository.findById(solicitud.idUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado en la Academia Tesla"));
         Leccion leccion = leccionRepository.findById(idLeccion)
                 .orElseThrow(() -> new RuntimeException("Lección no encontrada"));
 
-        List<Pregunta> preguntasEntity = preguntaRepository.findByLeccionIdConAlternativas(idLeccion);
+        List<Pregunta> preguntasBD = preguntaRepository.findByLeccionIdConAlternativas(idLeccion);
 
-        List<PreguntaDTO> preguntasDTO = preguntasEntity.stream().map(p -> new PreguntaDTO(
-                p.getIdPregunta(),
-                p.getTextoPregunta(),
-                p.getPreguntaImagenUrl(),
-                p.getAlternativas().stream()
-                        .map(a -> new AlternativaDTO(a.getIdAlternativa(), a.getTextoAlternativa()))
-                        .collect(Collectors.toList())
-        )).collect(Collectors.toList());
+        Map<Integer, Pregunta> mapaPreguntas = preguntasBD.stream()
+                .collect(Collectors.toMap(Pregunta::getIdPregunta, p -> p));
 
-        return new CuestionarioDTO(leccion.getIdLeccion(), leccion.getNombre(), preguntasDTO);
-    }
+        int respuestasCorrectas = 0;
+        List<FeedbackPreguntaDTO> feedbackList = new ArrayList<>();
 
-    @Transactional(readOnly = true)
-    public SemanaDetalleDTO verDetalle(Integer idSemana) {
-        Semana semana = semanaRepository.findById(idSemana)
-                .orElseThrow(() -> new RuntimeException("Semana no encontrada"));
+        // B. Lógica de corrección
+        for (RespuestaAlumnoDTO respuesta : solicitud.respuestas()) {
+            Pregunta pregunta = mapaPreguntas.get(respuesta.idPregunta());
+            if (pregunta == null) continue;
 
-        List<Leccion> leccionesEntity = leccionRepository.findBySemanaIdConPreguntas(idSemana);
+            Optional<Alternativa> alternativaCorrectaBD = pregunta.getAlternativas().stream()
+                    .filter(Alternativa::getIsCorrecta)
+                    .findFirst();
 
-        List<LeccionDetalleDTO> leccionDetalleDTO = leccionesEntity.stream().map(l -> new LeccionDetalleDTO(
-                l.getIdLeccion(),
-                l.getNombre(),
-                l.getOrden(),
-                l.getPreguntas().stream().map(p -> new PreguntaDetalleDTO(
-                        p.getIdPregunta(),
-                        p.getTextoPregunta(),
-                        p.getPreguntaImagenUrl(),
-                        p.getSolucionTexto(),
-                        p.getSolucionImagenUrl(),
-                        p.getAlternativas().stream().map( a -> new AlternativaDetalleDTO(
-                                a.getIdAlternativa(),
-                                a.getTextoAlternativa(),
-                                a.getIsCorrecta()
-                        )).collect(Collectors.toList())
-                )).collect(Collectors.toList())
-        )).collect(Collectors.toList());
-        return new SemanaDetalleDTO(semana.getIdSemana(), semana.getNroSemana(), semana.getIsBloqueada(), leccionDetalleDTO);
-    }
+            boolean esCorrecta = false;
+            Integer idCorrecta = null;
 
-    @Transactional
-    public void eliminarLeccion(Integer idLeccion) {
-        Leccion leccion = leccionRepository.findById(idLeccion)
-                .orElseThrow(() -> new RuntimeException("Leccion no encontrada"));
-        leccionRepository.delete(leccion);
+            if (alternativaCorrectaBD.isPresent()) {
+                idCorrecta = alternativaCorrectaBD.get().getIdAlternativa();
+                if (idCorrecta.equals(respuesta.idAlternativaSeleccionada())) {
+                    esCorrecta = true;
+                    respuestasCorrectas++;
+                }
+            }
+
+            feedbackList.add(new FeedbackPreguntaDTO(
+                    pregunta.getIdPregunta(), esCorrecta, idCorrecta,
+                    pregunta.getSolucionTexto(), pregunta.getSolucionImagenUrl()
+            ));
+        }
+
+        // C. Cálculo de Puntos y Ranking
+        boolean esPrimerIntento = !intentoRepository.existsByUsuarioIdUsuarioAndLeccionIdLeccion(usuario.getIdUsuario(), leccion.getIdLeccion());
+        int expGanada = 0;
+
+        if (esPrimerIntento) {
+            expGanada = respuestasCorrectas * 30;
+            if (expGanada > 0) {
+                EstadisticasAlumno stats = estadisticasRepository.findById(usuario.getIdUsuario())
+                        .orElseGet(() -> {
+                            EstadisticasAlumno nueva = new EstadisticasAlumno();
+                            nueva.setUsuario(usuario);
+                            return nueva;
+                        });
+
+                // ==========================================
+                // CORRECCIÓN APLICADA AQUÍ
+                // ==========================================
+                stats.ganarExperiencia(expGanada);
+
+                estadisticasRepository.save(stats);
+            }
+        }
+
+        // D. Registrar el Intento
+        Intento intento = new Intento();
+        intento.setUsuario(usuario);
+        intento.setLeccion(leccion);
+        intento.setPuntaje(respuestasCorrectas);
+        intento.setIsPrimerIntento(esPrimerIntento);
+        intentoRepository.save(intento);
+
+        // E. Actualizar Progreso
+        ProgresoLecciones progreso = progresoRepository.findById(new ProgresoLeccionesId(usuario.getIdUsuario(), leccion.getIdLeccion()))
+                .orElse(null);
+
+        if (progreso == null) {
+            progreso = new ProgresoLecciones();
+            progreso.setUsuario(usuario);
+            progreso.setLeccion(leccion);
+        }
+
+        progreso.setCompletada(true);
+        int totalPreguntas = preguntasBD.size();
+        int porcentaje = totalPreguntas > 0 ? (respuestasCorrectas * 100 / totalPreguntas) : 0;
+        progreso.setProgresoPorcentaje(Math.max(progreso.getProgresoPorcentaje() != null ? progreso.getProgresoPorcentaje() : 0, porcentaje));
+
+        progresoRepository.save(progreso);
+
+        return new ResultadoEvaluacionDTO(respuestasCorrectas, expGanada, true, feedbackList);
     }
 }

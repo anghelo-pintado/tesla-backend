@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.lesson.dto;
+package com.tesla.gamification.lesson.dto;
 
 public record CrearAlternativaDTO(
         String texto,

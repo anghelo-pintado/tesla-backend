@@ -1,52 +1,52 @@
-package com.tesla.gamification.progress.entity;
+package com.tesla.gamification.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 public class ProgresoLeccionesId implements Serializable {
 
-    // Deben ser Integer para coincidir con el tipo de ID de tus entidades Usuario y Leccion
-    // Los nombres 'usuario' y 'leccion' deben coincidir con los atributos de la entidad ProgresoLecciones
-    private Integer usuario;
-    private Integer leccion;
+    private Long usuarioId;
+    private Long leccionId;
 
+    // Constructor vacío (Obligatorio para JPA)
     public ProgresoLeccionesId() {
     }
 
-    public ProgresoLeccionesId(Integer usuario, Integer leccion) {
-        this.usuario = usuario;
-        this.leccion = leccion;
+    // Constructor con parámetros
+    public ProgresoLeccionesId(Long usuarioId, Long leccionId) {
+        this.usuarioId = usuarioId;
+        this.leccionId = leccionId;
     }
 
-    public Integer getUsuario() {
-        return usuario;
+    // --- Getters y Setters ---
+
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario(Integer usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
-    public Integer getLeccion() {
-        return leccion;
+    public Long getLeccionId() {
+        return leccionId;
     }
 
-    public void setLeccion(Integer leccion) {
-        this.leccion = leccion;
+    public void setLeccionId(Long leccionId) {
+        this.leccionId = leccionId;
     }
 
-    // --- ESTA ES LA SOLUCIÓN AL BUG ---
-    // Hibernate usa esto para saber si dos filas son la misma o diferentes
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProgresoLeccionesId that = (ProgresoLeccionesId) o;
-        return Objects.equals(usuario, that.usuario) &&
-                Objects.equals(leccion, that.leccion);
+        return Objects.equals(usuarioId, that.usuarioId) &&
+                Objects.equals(leccionId, that.leccionId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(usuario, leccion);
+        return Objects.hash(usuarioId, leccionId);
     }
 }

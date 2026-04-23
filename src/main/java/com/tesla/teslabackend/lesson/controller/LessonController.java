@@ -1,13 +1,13 @@
-package com.tesla.teslabackend.lesson.controller;
+package com.tesla.gamification.lesson.controller;
 
-import com.tesla.teslabackend.lesson.dto.detalle.SemanaDetalleDTO;
-import com.tesla.teslabackend.progress.dto.SolicitudCalificacionDTO;
-import com.tesla.teslabackend.lesson.dto.examen.CuestionarioDTO;
-import com.tesla.teslabackend.progress.dto.resultado.ResultadoEvaluacionDTO;
-import com.tesla.teslabackend.lesson.dto.CrearLeccionDTO;
-import com.tesla.teslabackend.lesson.entity.Leccion;
-import com.tesla.teslabackend.lesson.service.LessonService;
-import com.tesla.teslabackend.progress.service.EvaluacionService; // Importamos el servicio de progreso
+import com.tesla.gamification.lesson.dto.detalle.SemanaDetalleDTO;
+import com.tesla.gamification.progress.dto.SolicitudCalificacionDTO;
+import com.tesla.gamification.lesson.dto.examen.CuestionarioDTO;
+import com.tesla.gamification.progress.dto.resultado.ResultadoEvaluacionDTO;
+import com.tesla.gamification.lesson.dto.CrearLeccionDTO;
+import com.tesla.gamification.lesson.entity.Leccion;
+import com.tesla.gamification.lesson.service.LessonService;
+import com.tesla.gamification.progress.service.EvaluacionService; // Importamos el servicio de progreso
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

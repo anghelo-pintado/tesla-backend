@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.security.infrastructure;
+package com.tesla.gamification.security.infrastructure;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;

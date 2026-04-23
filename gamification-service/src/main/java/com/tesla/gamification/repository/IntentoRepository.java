@@ -1,6 +1,6 @@
-package com.tesla.gamification.progress.repository;
+package com.tesla.gamification.repository;
 
-import com.tesla.gamification.progress.entity.Intento;
+import com.tesla.gamification.entity.Intento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,8 +11,9 @@ import java.util.List;
 @Repository
 public interface IntentoRepository extends JpaRepository<Intento, Integer> {
 
-    boolean existsByUsuarioIdUsuarioAndLeccionIdLeccion(Integer idUsuario, Integer idLeccion);
+    boolean existsByUsuarioIdAndLeccionId(Long usuarioId, Long leccionId);
 
-    @Query("SELECT i.leccion.idLeccion, i.puntaje FROM Intento i WHERE i.usuario.idUsuario = :idUsuario AND i.isPrimerIntento = true")
-    List<Object[]> findPuntajesByUsuario(@Param("idUsuario") Integer idUsuario);
+    // Cambiamos a los campos directos de la entidad
+    @Query("SELECT i.leccionId, i.puntaje FROM Intento i WHERE i.usuarioId = :idUsuario AND i.isPrimerIntento = true")
+    List<Object[]> findPuntajesByUsuario(@Param("idUsuario") Long idUsuario);
 }

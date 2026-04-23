@@ -1,7 +1,5 @@
-package com.tesla.gamification.progress.entity;
+package com.tesla.gamification.entity;
 
-import com.tesla.gamification.user.entity.Usuario;
-import com.tesla.gamification.lesson.entity.Leccion;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,15 +18,11 @@ public class Intento {
     @Column(name = "id_intento")
     private Integer idIntento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario")
-    @ToString.Exclude
-    private Usuario usuario;
+    @Column(name = "id_usuario")
+    private Long usuarioId; // Desacoplado de Usuario
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_leccion")
-    @ToString.Exclude
-    private Leccion leccion;
+    @Column(name = "id_leccion")
+    private Long leccionId; // Desacoplado de Leccion
 
     private Integer puntaje;
 

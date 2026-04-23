@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.lesson.dto.examen;
+package com.tesla.gamification.lesson.dto.examen;
 
 public record AlternativaDTO(
         Integer idAlternativa,

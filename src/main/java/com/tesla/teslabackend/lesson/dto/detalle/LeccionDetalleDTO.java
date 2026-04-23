@@ -1,6 +1,6 @@
-package com.tesla.teslabackend.lesson.dto.detalle;
+package com.tesla.gamification.lesson.dto.detalle;
 
-import com.tesla.teslabackend.lesson.dto.examen.PreguntaDTO;
+import com.tesla.gamification.lesson.dto.examen.PreguntaDTO;
 
 import java.util.List;
 

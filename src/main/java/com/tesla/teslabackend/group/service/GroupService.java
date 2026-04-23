@@ -1,13 +1,13 @@
-package com.tesla.teslabackend.group.service;
+package com.tesla.gamification.group.service;
 
-import com.tesla.teslabackend.group.dto.GroupRankingDTO;
-import com.tesla.teslabackend.group.entity.Group;
-import com.tesla.teslabackend.group.entity.GroupMember;
-import com.tesla.teslabackend.group.repository.GroupMemberRepository;
-import com.tesla.teslabackend.group.repository.GroupRepository;
-import com.tesla.teslabackend.group.repository.ChatMessageRepository;
-import com.tesla.teslabackend.user.entity.Usuario;
-import com.tesla.teslabackend.user.repository.UsuarioRepository;
+import com.tesla.gamification.group.dto.GroupRankingDTO;
+import com.tesla.gamification.group.entity.Group;
+import com.tesla.gamification.group.entity.GroupMember;
+import com.tesla.gamification.group.repository.GroupMemberRepository;
+import com.tesla.gamification.group.repository.GroupRepository;
+import com.tesla.gamification.group.repository.ChatMessageRepository;
+import com.tesla.gamification.user.entity.Usuario;
+import com.tesla.gamification.user.repository.UsuarioRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

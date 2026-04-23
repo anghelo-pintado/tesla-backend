@@ -1,4 +1,4 @@
-package com.tesla.teslabackend;
+package com.tesla.gamification;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

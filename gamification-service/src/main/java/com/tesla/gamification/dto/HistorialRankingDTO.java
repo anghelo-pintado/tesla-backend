@@ -1,4 +1,4 @@
-package com.tesla.gamification.progress.dto;
+package com.tesla.gamification.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

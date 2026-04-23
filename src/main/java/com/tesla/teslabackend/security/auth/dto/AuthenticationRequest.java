@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.security.auth.dto;
+package com.tesla.gamification.security.auth.dto;
 
 public record AuthenticationRequest(
         String codigo,

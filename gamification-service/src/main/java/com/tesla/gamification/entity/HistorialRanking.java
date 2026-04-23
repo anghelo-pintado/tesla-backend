@@ -1,6 +1,5 @@
-package com.tesla.gamification.progress.entity;
+package com.tesla.gamification.entity;
 
-import com.tesla.gamification.user.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -18,9 +17,8 @@ public class HistorialRanking {
     @Column(name = "id_historial")
     private Integer idHistorial;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
+    @Column(name = "id_usuario", nullable = false)
+    private Long usuarioId; // Desacoplado de Usuario
 
     @Column(name = "exp_obtenida", nullable = false)
     private Integer expObtenida;

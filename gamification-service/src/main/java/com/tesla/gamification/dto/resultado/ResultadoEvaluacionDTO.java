@@ -1,4 +1,4 @@
-package com.tesla.gamification.progress.dto.resultado;
+package com.tesla.gamification.dto.resultado;
 
 import java.util.List;
 

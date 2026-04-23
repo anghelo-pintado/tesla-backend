@@ -1,4 +1,4 @@
-package com.tesla.gamification.progress.dto;
+package com.tesla.gamification.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class RankingItemDTO {
-    private Integer idUsuario;
+    private Long idUsuario;
     private String nombreCompleto;
     private String inicial;
     private Integer expTotal;

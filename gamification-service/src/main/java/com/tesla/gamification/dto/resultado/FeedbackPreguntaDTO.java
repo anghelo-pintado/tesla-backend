@@ -1,4 +1,4 @@
-package com.tesla.gamification.progress.dto.resultado;
+package com.tesla.gamification.dto.resultado;
 
 public record FeedbackPreguntaDTO(
         Integer idPregunta,

@@ -1,7 +1,7 @@
-package com.tesla.teslabackend.security.auth.service.impl;
+package com.tesla.gamification.security.auth.service.impl;
 
-import com.tesla.teslabackend.user.entity.Usuario;
-import com.tesla.teslabackend.user.repository.UsuarioRepository;
+import com.tesla.gamification.user.entity.Usuario;
+import com.tesla.gamification.user.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

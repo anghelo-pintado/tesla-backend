@@ -1,10 +1,10 @@
 package com.tesla.gamification.controller;
 
-import com.tesla.gamification.progress.dto.HistorialRankingDTO;
-import com.tesla.gamification.progress.entity.EstadisticasAlumno;
-import com.tesla.gamification.progress.entity.HistorialRanking;
-import com.tesla.gamification.progress.repository.EstadisticasAlumnoRepository;
-import com.tesla.gamification.progress.repository.HistorialRankingRepository;
+import com.tesla.gamification.dto.HistorialRankingDTO;
+import com.tesla.gamification.entity.EstadisticasAlumno;
+import com.tesla.gamification.entity.HistorialRanking;
+import com.tesla.gamification.repository.EstadisticasAlumnoRepository;
+import com.tesla.gamification.repository.HistorialRankingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -29,16 +29,16 @@ public class RankingController {
     private EstadisticasAlumnoRepository estadisticasRepository;
 
     @GetMapping
-    public ResponseEntity<List<Map<String, Object>>> obtenerRankingGeneral(@RequestParam(required = false) Integer userId) {
+    public ResponseEntity<List<Map<String, Object>>> obtenerRankingGeneral(@RequestParam(required = false) Long userId) {
         List<EstadisticasAlumno> todosLosAlumnos = estadisticasRepository.findAllByOrderByExpSemanalDesc();
         List<Map<String, Object>> respuesta = new ArrayList<>();
         int posicion = 1;
 
         for (EstadisticasAlumno alumno : todosLosAlumnos) {
             Map<String, Object> dto = new HashMap<>();
-            dto.put("idUsuario", alumno.getUsuario().getIdUsuario());
+            dto.put("idUsuario", alumno.getUsuarioId()); // CORREGIDO
             dto.put("posicion", posicion);
-            dto.put("nombreCompleto", alumno.getUsuario().getNombre() + " " + alumno.getUsuario().getApellido());
+            dto.put("nombreCompleto", "Usuario #" + alumno.getUsuarioId()); // CORREGIDO
 
             int expSemanal = (alumno.getExpSemanal() != null) ? alumno.getExpSemanal() : 0;
             dto.put("expParaRanking", expSemanal);
@@ -48,7 +48,7 @@ public class RankingController {
             int rankAnt = (alumno.getRankingAnterior() != null) ? alumno.getRankingAnterior() : 0;
             dto.put("rankingAnterior", rankAnt);
 
-            boolean esUsuarioActual = (userId != null && alumno.getUsuario().getIdUsuario().equals(userId));
+            boolean esUsuarioActual = (userId != null && alumno.getUsuarioId().equals(userId));
             dto.put("esUsuarioActual", esUsuarioActual);
 
             respuesta.add(dto);
@@ -58,7 +58,7 @@ public class RankingController {
     }
 
     @GetMapping("/semanal")
-    public ResponseEntity<List<Map<String, Object>>> obtenerRankingActual(@RequestParam(required = false) Integer userId) {
+    public ResponseEntity<List<Map<String, Object>>> obtenerRankingActual(@RequestParam(required = false) Long userId) {
         List<EstadisticasAlumno> rankingActual = estadisticasRepository.findAllByOrderByExpSemanalDesc();
         List<Map<String, Object>> respuesta = new ArrayList<>();
         int posicion = 1;
@@ -66,15 +66,15 @@ public class RankingController {
         for (EstadisticasAlumno alumno : rankingActual) {
             if (alumno.getExpSemanal() != null) {
                 Map<String, Object> dto = new HashMap<>();
-                dto.put("idUsuario", alumno.getUsuario().getIdUsuario());
+                dto.put("idUsuario", alumno.getUsuarioId()); // CORREGIDO
                 dto.put("posicion", posicion);
-                dto.put("nombreCompleto", alumno.getUsuario().getNombre() + " " + alumno.getUsuario().getApellido());
+                dto.put("nombreCompleto", "Usuario #" + alumno.getUsuarioId()); // CORREGIDO
                 dto.put("expParaRanking", alumno.getExpSemanal());
 
                 int rankAnt = (alumno.getRankingAnterior() != null) ? alumno.getRankingAnterior() : 0;
                 dto.put("rankingAnterior", rankAnt);
 
-                boolean esUsuarioActual = (userId != null && alumno.getUsuario().getIdUsuario().equals(userId));
+                boolean esUsuarioActual = (userId != null && alumno.getUsuarioId().equals(userId));
                 dto.put("esUsuarioActual", esUsuarioActual);
 
                 respuesta.add(dto);
@@ -92,7 +92,7 @@ public class RankingController {
         List<HistorialRanking> historial = historialRepository.findByMesAndAnio(mes, anio);
         List<HistorialRankingDTO> dtos = historial.stream().map(h -> new HistorialRankingDTO(
                 h.getIdHistorial(),
-                h.getUsuario().getNombre() + " " + h.getUsuario().getApellido(),
+                "Usuario #" + h.getUsuarioId(), // CORREGIDO
                 h.getExpObtenida(),
                 h.getPosicion(),
                 h.getFechaFinSemana()
@@ -116,7 +116,7 @@ public class RankingController {
         for (HistorialRanking h : historial) {
             Map<String, Object> dto = new HashMap<>();
             dto.put("posicion", h.getPosicion());
-            dto.put("nombreCompleto", h.getUsuario().getNombre() + " " + h.getUsuario().getApellido());
+            dto.put("nombreCompleto", "Usuario #" + h.getUsuarioId()); // CORREGIDO
             dto.put("expParaRanking", h.getExpObtenida());
             respuesta.add(dto);
         }

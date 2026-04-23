@@ -1,6 +1,6 @@
-package com.tesla.teslabackend.group.service;
+package com.tesla.gamification.group.service;
 
-import com.tesla.teslabackend.group.repository.ChatMessageRepository;
+import com.tesla.gamification.group.repository.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
-package com.tesla.teslabackend.lesson.repository;
+package com.tesla.gamification.lesson.repository;
 
-import com.tesla.teslabackend.lesson.entity.Pregunta;
+import com.tesla.gamification.lesson.entity.Pregunta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

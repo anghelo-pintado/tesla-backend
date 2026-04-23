@@ -1,9 +1,7 @@
-package com.tesla.gamification.progress.service;
+package com.tesla.gamification.service;
 
-import com.tesla.gamification.progress.entity.EstadisticasAlumno;
-import com.tesla.gamification.user.entity.Usuario;
-import com.tesla.gamification.progress.repository.EstadisticasAlumnoRepository;
-import com.tesla.gamification.user.repository.UsuarioRepository;
+import com.tesla.gamification.entity.EstadisticasAlumno;
+import com.tesla.gamification.repository.EstadisticasAlumnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,20 +15,15 @@ public class EstadisticaService {
     @Autowired
     private EstadisticasAlumnoRepository repository;
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
     @Transactional
-    public EstadisticasAlumno obtenerPorId(Integer idUsuario) {
-        EstadisticasAlumno stats = repository.findById(idUsuario).orElseGet(() -> {
-            Usuario usuario = usuarioRepository.findById(idUsuario)
-                    .orElseThrow(() -> new RuntimeException("Usuario no existe: " + idUsuario));
-
+    public EstadisticasAlumno obtenerPorId(Long usuarioId) {
+        EstadisticasAlumno stats = repository.findById(usuarioId).orElseGet(() -> {
+            // Ya no buscamos en UsuarioRepository. Creamos directamente el registro.
             EstadisticasAlumno nueva = EstadisticasAlumno.builder()
-                    .usuario(usuario)
+                    .usuarioId(usuarioId)
                     .rachaActual(0)
                     .expTotal(0)
-                    .expSemanal(0) // Inicializado a 0
+                    .expSemanal(0)
                     .estadoMascota("Huevo")
                     .ultimaFechaMision(LocalDate.now().minusDays(1))
                     .build();
@@ -44,8 +37,8 @@ public class EstadisticaService {
     }
 
     @Transactional
-    public EstadisticasAlumno actualizarProgreso(Integer idUsuario, int puntosExp) {
-        EstadisticasAlumno stats = obtenerPorId(idUsuario);
+    public EstadisticasAlumno actualizarProgreso(Long usuarioId, int puntosExp) {
+        EstadisticasAlumno stats = obtenerPorId(usuarioId);
         LocalDate hoy = LocalDate.now();
         LocalDate ultimaVez = stats.getUltimaFechaMision();
 

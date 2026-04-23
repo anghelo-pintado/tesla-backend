@@ -1,6 +1,6 @@
-package com.tesla.teslabackend.user.repository;
+package com.tesla.gamification.user.repository;
 
-import com.tesla.teslabackend.user.entity.Usuario;
+import com.tesla.gamification.user.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

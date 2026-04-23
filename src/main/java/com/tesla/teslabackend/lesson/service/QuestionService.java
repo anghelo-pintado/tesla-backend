@@ -1,13 +1,13 @@
-package com.tesla.teslabackend.lesson.service;
+package com.tesla.gamification.lesson.service;
 
-import com.tesla.teslabackend.lesson.entity.Alternativa;
-import com.tesla.teslabackend.lesson.entity.Leccion;
-import com.tesla.teslabackend.lesson.entity.Pregunta;
-import com.tesla.teslabackend.lesson.repository.AlternativaRepository;
-import com.tesla.teslabackend.lesson.repository.LeccionRepository;
-import com.tesla.teslabackend.lesson.repository.PreguntaRepository;
-import com.tesla.teslabackend.lesson.dto.CrearPreguntaDTO;
-import com.tesla.teslabackend.security.infrastructure.CloudinaryService; // Actualizado a la nueva ruta
+import com.tesla.gamification.lesson.entity.Alternativa;
+import com.tesla.gamification.lesson.entity.Leccion;
+import com.tesla.gamification.lesson.entity.Pregunta;
+import com.tesla.gamification.lesson.repository.AlternativaRepository;
+import com.tesla.gamification.lesson.repository.LeccionRepository;
+import com.tesla.gamification.lesson.repository.PreguntaRepository;
+import com.tesla.gamification.lesson.dto.CrearPreguntaDTO;
+import com.tesla.gamification.security.infrastructure.CloudinaryService; // Actualizado a la nueva ruta
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

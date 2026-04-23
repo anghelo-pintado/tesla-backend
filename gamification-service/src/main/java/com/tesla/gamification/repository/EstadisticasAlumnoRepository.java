@@ -1,6 +1,6 @@
-package com.tesla.gamification.progress.repository;
+package com.tesla.gamification.repository;
 
-import com.tesla.gamification.progress.entity.EstadisticasAlumno;
+import com.tesla.gamification.entity.EstadisticasAlumno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,12 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EstadisticasAlumnoRepository extends JpaRepository<EstadisticasAlumno, Integer> {
+public interface EstadisticasAlumnoRepository extends JpaRepository<EstadisticasAlumno, Long> {
 
-    @Query("SELECT e FROM EstadisticasAlumno e " +
-            "JOIN FETCH e.usuario u " +
-            "WHERE u.rol = 'alumno' " +
-            "ORDER BY e.expSemanal DESC")
+    // Ya no podemos hacer JOIN FETCH con usuario.
+    @Query("SELECT e FROM EstadisticasAlumno e ORDER BY e.expSemanal DESC")
     List<EstadisticasAlumno> findAllByOrderByExpSemanalDesc();
 
     @Modifying

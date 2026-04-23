@@ -1,13 +1,13 @@
-package com.tesla.teslabackend.security.auth.service.impl;
+package com.tesla.gamification.security.auth.service.impl;
 
-import com.tesla.teslabackend.security.auth.dto.RegisterRequest;
-import com.tesla.teslabackend.user.entity.Rol;
-import com.tesla.teslabackend.user.entity.Usuario;
-import com.tesla.teslabackend.user.repository.UsuarioRepository;
-import com.tesla.teslabackend.security.auth.dto.AuthenticationRequest;
-import com.tesla.teslabackend.security.auth.dto.AuthenticationResponse;
-import com.tesla.teslabackend.security.auth.service.IAuthenticationService;
-import com.tesla.teslabackend.security.jwt.JwtService;
+import com.tesla.gamification.security.auth.dto.RegisterRequest;
+import com.tesla.gamification.user.entity.Rol;
+import com.tesla.gamification.user.entity.Usuario;
+import com.tesla.gamification.user.repository.UsuarioRepository;
+import com.tesla.gamification.security.auth.dto.AuthenticationRequest;
+import com.tesla.gamification.security.auth.dto.AuthenticationResponse;
+import com.tesla.gamification.security.auth.service.IAuthenticationService;
+import com.tesla.gamification.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

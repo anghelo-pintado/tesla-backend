@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.security.config;
+package com.tesla.gamification.security.config;
 
 import com.cloudinary.Cloudinary;
 import org.springframework.beans.factory.annotation.Value;

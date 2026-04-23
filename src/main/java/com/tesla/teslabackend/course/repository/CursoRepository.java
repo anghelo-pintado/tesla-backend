@@ -1,6 +1,6 @@
-package com.tesla.teslabackend.course.repository;
+package com.tesla.gamification.course.repository;
 
-import com.tesla.teslabackend.course.entity.Curso;
+import com.tesla.gamification.course.entity.Curso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

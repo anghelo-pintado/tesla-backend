@@ -1,14 +1,13 @@
-package com.tesla.gamification.progress.service;
+package com.tesla.gamification.service;
 
-import com.tesla.gamification.progress.entity.EstadisticasAlumno;
-import com.tesla.gamification.progress.entity.HistorialRanking;
-import com.tesla.gamification.progress.repository.EstadisticasAlumnoRepository;
-import com.tesla.gamification.progress.repository.HistorialRankingRepository;
+import com.tesla.gamification.entity.EstadisticasAlumno;
+import com.tesla.gamification.entity.HistorialRanking;
+import com.tesla.gamification.repository.EstadisticasAlumnoRepository;
+import com.tesla.gamification.repository.HistorialRankingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -33,10 +32,9 @@ public class RankingCronTask {
 
             int posicionGuardado = 1;
             for (EstadisticasAlumno alumno : rankingActual) {
-                // Solo guardamos en el historial si tienen experiencia mayor a 0
                 if (alumno.getExpSemanal() != null && alumno.getExpSemanal() > 0) {
                     HistorialRanking registro = HistorialRanking.builder()
-                            .usuario(alumno.getUsuario())
+                            .usuarioId(alumno.getUsuarioId()) // CORREGIDO AQUÍ
                             .expObtenida(alumno.getExpSemanal())
                             .posicion(posicionGuardado)
                             .fechaFinSemana(fechaFin)

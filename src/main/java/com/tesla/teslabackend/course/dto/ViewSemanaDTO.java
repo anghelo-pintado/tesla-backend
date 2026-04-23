@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.course.dto;
+package com.tesla.gamification.course.dto;
 
 import java.util.List;
 

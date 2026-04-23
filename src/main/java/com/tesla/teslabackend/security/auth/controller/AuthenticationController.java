@@ -1,9 +1,9 @@
-package com.tesla.teslabackend.security.auth.controller;
+package com.tesla.gamification.security.auth.controller;
 
-import com.tesla.teslabackend.security.auth.dto.AuthenticationRequest;
-import com.tesla.teslabackend.security.auth.dto.AuthenticationResponse;
-import com.tesla.teslabackend.security.auth.dto.RegisterRequest;
-import com.tesla.teslabackend.security.auth.service.IAuthenticationService;
+import com.tesla.gamification.security.auth.dto.AuthenticationRequest;
+import com.tesla.gamification.security.auth.dto.AuthenticationResponse;
+import com.tesla.gamification.security.auth.dto.RegisterRequest;
+import com.tesla.gamification.security.auth.service.IAuthenticationService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

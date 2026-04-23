@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.security.jwt;
+package com.tesla.gamification.security.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

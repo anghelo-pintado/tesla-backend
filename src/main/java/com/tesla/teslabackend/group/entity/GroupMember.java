@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.group.entity;
+package com.tesla.gamification.group.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

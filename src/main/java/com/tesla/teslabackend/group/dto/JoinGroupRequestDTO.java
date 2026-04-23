@@ -1,4 +1,4 @@
-package com.tesla.teslabackend.group.dto;
+package com.tesla.gamification.group.dto;
 
 import lombok.Data;
 

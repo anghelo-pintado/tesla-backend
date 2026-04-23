@@ -1,8 +1,8 @@
-package com.tesla.gamification.progress.service;
+package com.tesla.gamification.service;
 
-import com.tesla.gamification.progress.entity.ProgresoLecciones;
-import com.tesla.gamification.progress.repository.ProgresoLeccionesRepository;
-import com.tesla.gamification.progress.repository.IntentoRepository;
+import com.tesla.gamification.entity.ProgresoLecciones;
+import com.tesla.gamification.repository.ProgresoLeccionesRepository;
+import com.tesla.gamification.repository.IntentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,27 +18,26 @@ public class ProgressService {
     private ProgresoLeccionesRepository progresoRepository;
 
     @Autowired
-    private IntentoRepository intentoRepository; // Inyectamos el repo de intentos
+    private IntentoRepository intentoRepository;
 
     @Transactional(readOnly = true)
-    public Map<Integer, Boolean> obtenerMapaLeccionesCompletadas(Integer usuarioId, Integer cursoId) {
-        List<ProgresoLecciones> progresos = progresoRepository.findProgresoPorUsuarioYCurso(usuarioId, cursoId);
+    public Map<Long, Boolean> obtenerMapaLeccionesCompletadas(Long usuarioId) {
+        List<ProgresoLecciones> progresos = progresoRepository.findByUsuarioId(usuarioId);
 
-        // Devolvemos directamente el mapa listo para usar
         return progresos.stream()
                 .collect(Collectors.toMap(
-                        p -> p.getLeccion().getIdLeccion(),
+                        ProgresoLecciones::getLeccionId,
                         ProgresoLecciones::getCompletada,
                         (existente, reemplazo) -> existente
                 ));
     }
 
     @Transactional(readOnly = true)
-    public Map<Integer, Integer> obtenerMapaExpGanada(Integer usuarioId) {
+    public Map<Long, Integer> obtenerMapaExpGanada(Long usuarioId) {
         List<Object[]> resultados = intentoRepository.findPuntajesByUsuario(usuarioId);
 
         return resultados.stream().collect(Collectors.toMap(
-                row -> (Integer) row[0],
+                row -> (Long) row[0],
                 row -> ((Integer) row[1]) * 30,
                 (existente, reemplazo) -> existente
         ));

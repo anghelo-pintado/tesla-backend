@@ -1,13 +1,13 @@
-package com.tesla.teslabackend.course.service;
+package com.tesla.gamification.course.service;
 
-import com.tesla.teslabackend.course.dto.SemanaDTO;
-import com.tesla.teslabackend.course.dto.ViewLeccionDTO;
-import com.tesla.teslabackend.course.dto.ViewSemanaDTO;
-import com.tesla.teslabackend.course.entity.Semana;
-import com.tesla.teslabackend.course.entity.Curso;
-import com.tesla.teslabackend.course.repository.CursoRepository;
-import com.tesla.teslabackend.course.repository.SemanaRepository;
-import com.tesla.teslabackend.course.dto.CrearSemanaDTO;
+import com.tesla.gamification.course.dto.SemanaDTO;
+import com.tesla.gamification.course.dto.ViewLeccionDTO;
+import com.tesla.gamification.course.dto.ViewSemanaDTO;
+import com.tesla.gamification.course.entity.Semana;
+import com.tesla.gamification.course.entity.Curso;
+import com.tesla.gamification.course.repository.CursoRepository;
+import com.tesla.gamification.course.repository.SemanaRepository;
+import com.tesla.gamification.course.dto.CrearSemanaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

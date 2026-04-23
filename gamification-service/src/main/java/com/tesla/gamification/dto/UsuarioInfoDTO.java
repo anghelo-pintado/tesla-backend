@@ -1,4 +1,7 @@
 package com.tesla.gamification.dto;
 
-public class UsuarioInfoDTO {
-}
+public record UsuarioInfoDTO(
+        Long idUsuario,
+        String nombre,
+        String apellido
+) {}

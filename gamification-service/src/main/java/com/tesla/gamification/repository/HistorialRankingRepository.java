@@ -1,6 +1,6 @@
-package com.tesla.gamification.progress.repository;
+package com.tesla.gamification.repository;
 
-import com.tesla.gamification.progress.entity.HistorialRanking;
+import com.tesla.gamification.entity.HistorialRanking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface HistorialRankingRepository extends JpaRepository<HistorialRanking, Integer> {
 
-    @Query("SELECT h FROM HistorialRanking h JOIN FETCH h.usuario " +
+    @Query("SELECT h FROM HistorialRanking h " +
             "WHERE h.mes = :mes AND h.anio = :anio AND h.posicion <= 3 " +
             "ORDER BY h.fechaFinSemana DESC, h.posicion ASC")
     List<HistorialRanking> findByMesAndAnio(@Param("mes") Integer mes, @Param("anio") Integer anio);
@@ -20,6 +20,6 @@ public interface HistorialRankingRepository extends JpaRepository<HistorialRanki
     @Query("SELECT DISTINCT h.fechaFinSemana FROM HistorialRanking h ORDER BY h.fechaFinSemana DESC")
     List<LocalDate> obtenerFechasDisponibles();
 
-    @Query("SELECT h FROM HistorialRanking h JOIN FETCH h.usuario WHERE h.fechaFinSemana = :fecha ORDER BY h.posicion ASC")
+    @Query("SELECT h FROM HistorialRanking h WHERE h.fechaFinSemana = :fecha ORDER BY h.posicion ASC")
     List<HistorialRanking> findByFechaFinSemanaOrderByPosicionAsc(@Param("fecha") LocalDate fecha);
 }

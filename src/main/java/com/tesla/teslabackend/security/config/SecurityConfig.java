@@ -1,6 +1,6 @@
-package com.tesla.teslabackend.security.config;
+package com.tesla.gamification.security.config;
 
-import com.tesla.teslabackend.security.jwt.JwtAuthFilter;
+import com.tesla.gamification.security.jwt.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

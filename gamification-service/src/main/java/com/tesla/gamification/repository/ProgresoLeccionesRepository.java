@@ -1,10 +1,8 @@
-package com.tesla.gamification.progress.repository;
+package com.tesla.gamification.repository;
 
-import com.tesla.gamification.progress.entity.ProgresoLecciones;
-import com.tesla.gamification.progress.entity.ProgresoLeccionesId;
+import com.tesla.gamification.entity.ProgresoLecciones;
+import com.tesla.gamification.entity.ProgresoLeccionesId;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.List;
 @Repository
 public interface ProgresoLeccionesRepository extends JpaRepository<ProgresoLecciones, ProgresoLeccionesId> {
 
-    // Se cambió Integer a Long para estandarizar
-    @Query("SELECT p FROM ProgresoLecciones p WHERE p.usuario.idUsuario = :usuarioId AND p.leccion.semana.curso.idCurso = :cursoId")
-    List<ProgresoLecciones> findProgresoPorUsuarioYCurso(@Param("usuarioId") Integer usuarioId, @Param("cursoId") Integer cursoId);
+    // Método autogenerado por Spring Data JPA (sin necesidad de @Query)
+    List<ProgresoLecciones> findByUsuarioId(Long usuarioId);
 }

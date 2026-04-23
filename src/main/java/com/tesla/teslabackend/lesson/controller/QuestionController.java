@@ -1,9 +1,9 @@
-package com.tesla.teslabackend.lesson.controller;
+package com.tesla.gamification.lesson.controller;
 
 // ... existing code ...
-import com.tesla.teslabackend.lesson.entity.Pregunta;
-import com.tesla.teslabackend.lesson.service.QuestionService;
-import com.tesla.teslabackend.lesson.dto.CrearPreguntaDTO;
+import com.tesla.gamification.lesson.entity.Pregunta;
+import com.tesla.gamification.lesson.service.QuestionService;
+import com.tesla.gamification.lesson.dto.CrearPreguntaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;

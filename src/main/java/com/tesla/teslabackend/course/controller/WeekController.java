@@ -1,9 +1,9 @@
-package com.tesla.teslabackend.course.controller;
+package com.tesla.gamification.course.controller;
 
-import com.tesla.teslabackend.course.dto.ViewSemanaDTO;
-import com.tesla.teslabackend.course.entity.Semana;
-import com.tesla.teslabackend.course.service.WeekService;
-import com.tesla.teslabackend.course.dto.CrearSemanaDTO;
+import com.tesla.gamification.course.dto.ViewSemanaDTO;
+import com.tesla.gamification.course.entity.Semana;
+import com.tesla.gamification.course.service.WeekService;
+import com.tesla.gamification.course.dto.CrearSemanaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

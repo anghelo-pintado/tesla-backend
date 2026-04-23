@@ -1,10 +1,10 @@
-package com.tesla.teslabackend.course.controller;
+package com.tesla.gamification.course.controller;
 
-import com.tesla.teslabackend.course.dto.CursoDTO;
-import com.tesla.teslabackend.course.entity.Curso;
-import com.tesla.teslabackend.course.service.CourseService;
-import com.tesla.teslabackend.course.dto.CaminoCursoDTO;
-import com.tesla.teslabackend.course.dto.CrearCursoDTO;
+import com.tesla.gamification.course.dto.CursoDTO;
+import com.tesla.gamification.course.entity.Curso;
+import com.tesla.gamification.course.service.CourseService;
+import com.tesla.gamification.course.dto.CaminoCursoDTO;
+import com.tesla.gamification.course.dto.CrearCursoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

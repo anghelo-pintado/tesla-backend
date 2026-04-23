@@ -1,6 +1,6 @@
-package com.tesla.teslabackend.security.config;
+package com.tesla.gamification.security.config;
 
-import com.tesla.teslabackend.user.repository.UsuarioRepository;
+import com.tesla.gamification.user.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

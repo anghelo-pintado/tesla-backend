@@ -1,10 +1,9 @@
-package com.tesla.gamification.progress.controller;
+package com.tesla.gamification.controller;
 
-import com.tesla.gamification.progress.entity.EstadisticasAlumno;
-import com.tesla.gamification.progress.service.EstadisticaService;
+import com.tesla.gamification.entity.EstadisticasAlumno;
+import com.tesla.gamification.service.EstadisticaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -16,18 +15,19 @@ public class EstadisticaController {
     @Autowired
     private EstadisticaService service;
 
+    // CAMBIO AQUÍ: Integer a Long
     @GetMapping("/{idUsuario}")
-    public ResponseEntity<EstadisticasAlumno> getStats(@PathVariable Integer idUsuario) {
+    public ResponseEntity<EstadisticasAlumno> getStats(@PathVariable Long idUsuario) {
         System.out.println(">>> ENTRO A STATS <<<");
         return ResponseEntity.ok(service.obtenerPorId(idUsuario));
     }
 
+    // CAMBIO AQUÍ: Integer a Long
     @PostMapping("/{idUsuario}/mision-completa")
     public ResponseEntity<EstadisticasAlumno> completarMision(
-            @PathVariable Integer idUsuario,
+            @PathVariable Long idUsuario,
             @RequestBody Map<String, Integer> payload) {
 
-        // Suponiendo que el front envía {"exp": 50}
         int expGanada = payload.get("exp");
         return ResponseEntity.ok(service.actualizarProgreso(idUsuario, expGanada));
     }

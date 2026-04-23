@@ -1,6 +1,6 @@
-package com.tesla.teslabackend.group.repository;
+package com.tesla.gamification.group.repository;
 
-import com.tesla.teslabackend.group.entity.Group;
+import com.tesla.gamification.group.entity.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

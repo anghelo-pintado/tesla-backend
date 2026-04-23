@@ -1,8 +1,8 @@
-package com.tesla.teslabackend.lesson.entity;
+package com.tesla.gamification.lesson.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tesla.teslabackend.course.entity.Semana;
+import com.tesla.gamification.course.entity.Semana;
 import jakarta.persistence.*;
 import lombok.*;
 

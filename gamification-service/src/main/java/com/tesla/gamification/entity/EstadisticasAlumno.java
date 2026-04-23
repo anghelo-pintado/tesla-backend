@@ -1,7 +1,5 @@
-package com.tesla.gamification.progress.entity;
+package com.tesla.gamification.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tesla.gamification.user.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -16,15 +14,8 @@ import java.time.temporal.ChronoUnit;
 public class EstadisticasAlumno {
 
     @Id
-    @Column(name = "id_usuario")
-    private Integer idUsuario;
-
-    @JsonIgnore
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "id_usuario", nullable = false)
-    @ToString.Exclude
-    private Usuario usuario;
+    @Column(name = "id_usuario") // Ahora el ID es directamente el id del usuario
+    private Long usuarioId;
 
     @Column(name = "racha_actual")
     private Integer rachaActual;
@@ -47,7 +38,6 @@ public class EstadisticasAlumno {
 
     public void ganarExperiencia(int puntos) {
         if (puntos > 0) {
-            // Se usa el operador ternario para evitar NullPointerException si la BD tiene nulos
             this.expTotal = (this.expTotal == null ? 0 : this.expTotal) + puntos;
             this.expSemanal = (this.expSemanal == null ? 0 : this.expSemanal) + puntos;
         }

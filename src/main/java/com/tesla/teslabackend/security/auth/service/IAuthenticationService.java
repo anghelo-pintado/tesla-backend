@@ -1,8 +1,8 @@
-package com.tesla.teslabackend.security.auth.service;
+package com.tesla.gamification.security.auth.service;
 
-import com.tesla.teslabackend.security.auth.dto.AuthenticationRequest;
-import com.tesla.teslabackend.security.auth.dto.AuthenticationResponse;
-import com.tesla.teslabackend.security.auth.dto.RegisterRequest;
+import com.tesla.gamification.security.auth.dto.AuthenticationRequest;
+import com.tesla.gamification.security.auth.dto.AuthenticationResponse;
+import com.tesla.gamification.security.auth.dto.RegisterRequest;
 
 public interface IAuthenticationService {
 
