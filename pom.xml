@@ -15,14 +15,11 @@
 	<name>teslabackend</name>
 	<description>teslabackend</description>
 	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
+	<licenses><license/></licenses>
+	<developers><developer/></developers>
 	<modules>
 		<module>api-gateway</module>
+		<module>monolith</module>
 	</modules>
 	<scm>
 		<connection/>
