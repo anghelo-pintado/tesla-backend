@@ -1,11 +1,11 @@
-package group.service;
+package com.tesla.teslasocialservice.service;
 
-import group.dto.GroupRankingDTO;
-import group.entity.Group;
-import group.entity.GroupMember;
-import group.repository.GroupMemberRepository;
-import group.repository.GroupRepository;
-import group.repository.ChatMessageRepository;
+import com.tesla.teslasocialservice.dto.GroupRankingDTO;
+import com.tesla.teslasocialservice.entity.Group;
+import com.tesla.teslasocialservice.entity.GroupMember;
+import com.tesla.teslasocialservice.repository.GroupMemberRepository;
+import com.tesla.teslasocialservice.repository.GroupRepository;
+import com.tesla.teslasocialservice.repository.ChatMessageRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

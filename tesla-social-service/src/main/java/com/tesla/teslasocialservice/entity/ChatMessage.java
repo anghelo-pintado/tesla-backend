@@ -1,4 +1,4 @@
-package group.entity;
+package com.tesla.teslasocialservice.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

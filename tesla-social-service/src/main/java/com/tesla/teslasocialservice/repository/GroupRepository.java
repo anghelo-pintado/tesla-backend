@@ -1,6 +1,6 @@
-package group.repository;
+package com.tesla.teslasocialservice.repository;
 
-import group.entity.Group;
+import com.tesla.teslasocialservice.entity.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package group.service;
+package com.tesla.teslasocialservice.service;
 
-import group.repository.ChatMessageRepository;
+import com.tesla.teslasocialservice.repository.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

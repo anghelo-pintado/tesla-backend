@@ -1,6 +1,6 @@
-package group.repository;
+package com.tesla.teslasocialservice.repository;
 
-import group.entity.ChatMessage;
+import com.tesla.teslasocialservice.entity.ChatMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

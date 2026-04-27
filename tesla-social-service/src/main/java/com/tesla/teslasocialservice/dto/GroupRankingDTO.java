@@ -1,4 +1,4 @@
-package group.dto;
+package com.tesla.teslasocialservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
